@@ -81,10 +81,12 @@ public class MyFoodActivity extends Activity {
                     to,
                     0
             );
+            int i = 0;
             View rootView = inflater.inflate(R.layout.fragment_my_food, container, false);
             ListView listView = (ListView) rootView.findViewById(R.id.listview_myFood);
             listView.setAdapter(mMyFoodAdapter);
             return rootView;
+
         }
 
         @Override
