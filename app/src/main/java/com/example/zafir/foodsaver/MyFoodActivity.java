@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -57,6 +59,7 @@ public class MyFoodActivity extends Activity {
         private SimpleCursorAdapter mMyFoodAdapter;
         public static final int COL_RESTAURANT_KEY = 0;
         private static final int MYFOOD_LOADER = 0;
+        String _id;
 
         public MyFoodFragment() {
         }
@@ -81,10 +84,21 @@ public class MyFoodActivity extends Activity {
                     to,
                     0
             );
-            int i = 0;
             View rootView = inflater.inflate(R.layout.fragment_my_food, container, false);
             ListView listView = (ListView) rootView.findViewById(R.id.listview_myFood);
             listView.setAdapter(mMyFoodAdapter);
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Cursor cursor = (Cursor) mMyFoodAdapter.getItem(i);
+                    _id = cursor.getString(cursor.getColumnIndex(RestaurantEntry._ID));
+                    Intent intent = new Intent(getActivity(), MyItemActivity.class)
+                            .putExtra(Intent.EXTRA_TEXT, _id);
+                    startActivity(intent);
+                }
+            });
+
             return rootView;
 
         }

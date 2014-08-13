@@ -4,7 +4,9 @@
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/listPreferredItemHeight"
     android:gravity="center_vertical"
-    android:id="@+id/list_item_myfood_textview">
+    android:id="@+id/list_item_myfood_textview"
+    android:fontFamily="sans-serif-condensed"
+    android:textAppearance="?android:textAppearanceSmall">
 
 
 </TextView>

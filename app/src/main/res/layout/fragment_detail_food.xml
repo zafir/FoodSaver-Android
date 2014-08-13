@@ -8,19 +8,86 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="com.example.zafir.foodsaver.DetailFoodActivity$PlaceholderFragment">
-
-    <TextView
-        android:id="@+id/detail_food"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <EditText
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:ems="10"
-        android:id="@+id/descriptionText"
-        android:text ="I had the sushi"/>
+        android:orientation="vertical"
+        android:paddingBottom="16dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_food_name_label"
+            android:fontFamily="sans-serif-condensed"
+            android:textAppearance="?android:textAppearanceLarge"/>
+        <TextView
+            android:id="@+id/detail_food"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Honeycreek"
+            android:fontFamily="sans-serif-condensed"
+            android:textAppearance="?android:textAppearanceLarge"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="16dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_food_item_label"
+            android:fontFamily="sans-serif-condensed"
+            android:textAppearance="?android:textAppearanceLarge"/>
+        <EditText
+            android:id="@+id/itemText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="@string/detail_food_item_default"
+            android:fontFamily="sans-serif-condensed"
+            android:textAppearance="?android:textAppearanceLarge"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="16dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_food_rating_label"
+            android:fontFamily="sans-serif-condensed"
+            android:textAppearance="?android:textAppearanceLarge"/>
+        <RatingBar
+            android:id="@+id/detail_food_ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:stepSize="1"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="16dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detail_food_desc_label"
+            android:fontFamily="sans-serif-condensed"
+            android:textAppearance="?android:textAppearanceLarge"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/descriptionText"
+            android:hint ="@string/detail_food_desc_default"
+            android:fontFamily="sans-serif-condensed"
+            android:textAppearance="?android:textAppearanceLarge"/>
+    </LinearLayout>
 
     <Button
         android:layout_width="wrap_content"

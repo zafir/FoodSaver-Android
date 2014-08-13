@@ -29,6 +29,9 @@ public class RestaurantContract {
         public static final String COLUMN_RESTAURANT_KEY = "restaurant_name";
         public static final String COLUMN_ADDRESS = "address";
         public static final String COLUMN_DESC = "description";
+        public static final String COLUMN_RATING = "rating";
+        public static final String COLUMN_ITEM = "item";
+        public static final String COLUMN_DATE = "date";
 
         public static Uri buildRestaurantUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);

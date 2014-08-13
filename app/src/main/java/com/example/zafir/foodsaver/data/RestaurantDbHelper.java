@@ -19,8 +19,11 @@ public class RestaurantDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_RESTAURANT_TABLE =
                 "CREATE TABLE " + RestaurantContract.RestaurantEntry.TABLE_NAME + " (" +
                         RestaurantContract.RestaurantEntry._ID + " INTEGER PRIMARY KEY," +
+                        RestaurantContract.RestaurantEntry.COLUMN_DATE + " TEXT NOT NULL, " +
                         RestaurantContract.RestaurantEntry.COLUMN_RESTAURANT_KEY + " TEXT NOT NULL, " + //should be "unique not null"?
                         RestaurantContract.RestaurantEntry.COLUMN_ADDRESS + " TEXT NOT NULL, " +
+                        RestaurantContract.RestaurantEntry.COLUMN_ITEM + " TEXT NOT NULL, " +
+                        RestaurantContract.RestaurantEntry.COLUMN_RATING + " INTEGER NOT NULL, " +
                         RestaurantContract.RestaurantEntry.COLUMN_DESC + " TEXT NOT NULL" + " );";
         sqLiteDatabase.execSQL(SQL_CREATE_RESTAURANT_TABLE);
     }

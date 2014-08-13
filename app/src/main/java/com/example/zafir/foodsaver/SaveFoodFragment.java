@@ -4,6 +4,7 @@ package com.example.zafir.foodsaver;
  * Created by zafir on 8/6/14.
  */
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -37,32 +39,6 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
     private final String LOG_TAG = SaveFoodFragment.class.getSimpleName();
     private ArrayAdapter<String> mRestaurantAdapter;
 
-    @Override
-    public void onLocationChanged(Location location) {
-        lat = location.getLatitude();
-        lon = location.getLongitude();
-        Log.v(LOG_TAG,"LAT SET: " + lat + " LON SET: " + lon);
-        Toast.makeText(getActivity(), "Lat long set!",
-                Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onStatusChanged(String s, int i, Bundle bundle) {
-        //auto generated - do nothing
-    }
-
-    @Override
-    public void onProviderEnabled(String s) {
-        Toast.makeText(getActivity(), "Enabled new provider " + provider,
-                Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onProviderDisabled(String s) {
-        Toast.makeText(getActivity(), "Disabled provider " + provider,
-                Toast.LENGTH_SHORT).show();
-    }
-
     public SaveFoodFragment() {
     }
 
@@ -76,7 +52,6 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
         provider = locationManager.getBestProvider(criteria, false);
         Location location = locationManager.getLastKnownLocation(provider);
         if (location != null) {
-            System.out.println("Provider " + provider + " has been selected");
             onLocationChanged(location);
         } else {
             Toast.makeText(getActivity(), "Location not available", Toast.LENGTH_SHORT).show();
@@ -138,7 +113,57 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
                 startActivity(intent);
             }
         });
+
+        //check for button click
+        Button notFound = (Button) rootView.findViewById(R.id.button_cant_find_restaurant);
+        notFound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                builder.setMessage("foo").setTitle(R.string.restaurant_not_found_button);
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
         return rootView;
     }
+/*
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View view = super.getView(position, convertView, parent);
+        if (position%2==0) {
+            convertView.setBackgroundColor(R.color.light_gray);
+        }
+        return view;
+    }*/
+
+
+    @Override
+    public void onLocationChanged(Location location) {
+        lat = location.getLatitude();
+        lon = location.getLongitude();
+        Log.v(LOG_TAG,"LAT SET: " + lat + " LON SET: " + lon);
+        Toast.makeText(getActivity(), "Lat long set!",
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+        //auto generated - do nothing
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+        Toast.makeText(getActivity(), "Enabled new provider " + provider,
+                Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+        Toast.makeText(getActivity(), "Disabled provider " + provider,
+                Toast.LENGTH_SHORT).show();
+    }
+
 
 }

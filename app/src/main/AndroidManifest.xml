@@ -45,6 +45,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.zafir.foodsaver.MainActivity" />
         </activity>
+        <activity
+            android:name=".MyItemActivity"
+            android:label="@string/title_activity_my_item"
+            android:parentActivityName=".MyFoodActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.zafir.foodsaver.MyFoodActivity" />
+        </activity>
     </application>
 
 </manifest>
