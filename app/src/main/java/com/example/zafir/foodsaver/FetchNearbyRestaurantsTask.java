@@ -56,6 +56,7 @@ public class FetchNearbyRestaurantsTask extends AsyncTask<String, Void, String[]
             String name;
             String address;
             JSONObject restaurant;
+
             try {
                 // Get the JSON object representing the day
                 restaurant = restaurantJsonArray.getJSONObject(i);

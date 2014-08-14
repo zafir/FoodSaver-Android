@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 
 import com.example.zafir.foodsaver.data.RestaurantContract.RestaurantEntry;
 
@@ -56,7 +55,7 @@ public class MyFoodActivity extends Activity {
      * A placeholder fragment containing a simple view.
      */
     public static class MyFoodFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
-        private SimpleCursorAdapter mMyFoodAdapter;
+        private CustomCursorAdapter mMyFoodAdapter;
         public static final int COL_RESTAURANT_KEY = 0;
         private static final int MYFOOD_LOADER = 0;
         String _id;
@@ -76,7 +75,7 @@ public class MyFoodActivity extends Activity {
 
             String[] from = new String[] {RestaurantEntry.COLUMN_RESTAURANT_KEY};
             int[] to = new int[] {R.id.list_item_myfood_textview};
-            mMyFoodAdapter = new SimpleCursorAdapter(
+            mMyFoodAdapter = new CustomCursorAdapter(
                     getActivity(),
                     R.layout.list_item_myfood,
                     null,

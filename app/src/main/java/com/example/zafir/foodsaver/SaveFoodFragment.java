@@ -21,7 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -37,7 +36,7 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
     private double lat = Double.MIN_VALUE;
     private double lon = Double.MIN_VALUE;
     private final String LOG_TAG = SaveFoodFragment.class.getSimpleName();
-    private ArrayAdapter<String> mRestaurantAdapter;
+    private CustomArrayAdapter mRestaurantAdapter;
 
     public SaveFoodFragment() {
     }
@@ -94,7 +93,7 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_save_food, container, false);
 
-        mRestaurantAdapter = new ArrayAdapter<String>(
+        mRestaurantAdapter = new CustomArrayAdapter(
                 getActivity(),
                 R.layout.list_item_nearby_restaurants,
                 R.id.list_item_nearby_restaurants_textview,
@@ -128,15 +127,7 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
 
         return rootView;
     }
-/*
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view = super.getView(position, convertView, parent);
-        if (position%2==0) {
-            convertView.setBackgroundColor(R.color.light_gray);
-        }
-        return view;
-    }*/
+
 
 
     @Override
