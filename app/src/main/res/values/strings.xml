@@ -8,9 +8,9 @@
     <string name="save_food">Save Food</string>
     <string name="title_activity_save_food">Nearby restaurants</string>
     <string name="action_refresh">Refresh</string>
-    <string name="title_activity_detail_food">DetailFoodActivity</string>
+    <string name="title_activity_detail_food">New food entry</string>
     <string name="detail_food_button">Save</string>
-    <string name="title_activity_my_food">MyFoodActivity</string>
+    <string name="title_activity_my_food">Saved entries</string>
     <string name="detail_food_name_label">Where did you go?</string>
     <string name="detail_food_item_label">What did you eat?</string>
     <string name="detail_food_rating_label">Rate it!</string>
@@ -18,7 +18,7 @@
     <string name="detail_food_desc_default">Remember to ask for sambal sauce!</string>
     <string name="detail_food_item_default">Fish tacos</string>
     <string name="restaurant_not_found_button">Don\'t see your restaurant?</string>
-    <string name="title_activity_my_item">MyItemActivity</string>
+    <string name="title_activity_my_item">Item entry</string>
     <string name="save_entry">Go on</string>
     <string name="cancel">Cancel</string>
     <string name="warning_entry">I understand</string>

@@ -47,6 +47,10 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        getLocation();
+    }
+
+    private void getLocation() {
         Toast.makeText(getActivity(), "Finding location...", Toast.LENGTH_SHORT).show();
         locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
@@ -66,16 +70,22 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_refresh) {
+            getLocation();
+            updateRestaurants();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
     private void updateRestaurants() {
         FetchNearbyRestaurantsTask restaurantsTask = new FetchNearbyRestaurantsTask(getActivity(),
                 mRestaurantAdapter);
-        if (lat == Double.MIN_VALUE) {
-            lat = 37.397488;
+        /*if (lat == Double.MIN_VALUE) {
+            lat = null;
             lon = -122.080521;
-        }
+        }*/
         restaurantsTask.execute(String.valueOf(lat), String.valueOf(lon));
     }
 
@@ -99,6 +109,7 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
         ListView listView = (ListView) rootView.findViewById(R.id.listview_restaurant);
         listView.setAdapter(mRestaurantAdapter);
 
+        getActivity().setProgressBarIndeterminateVisibility(false);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override

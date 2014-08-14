@@ -181,5 +181,7 @@ public class FetchNearbyRestaurantsTask extends AsyncTask<String, Void, ArrayLis
                 mRestaurantAdapter.add(restaurantStr);
             }
         }
+        //Activity activity = (Activity) mContext;
+        //activity.setProgressBarIndeterminateVisibility(false);
     }
 }

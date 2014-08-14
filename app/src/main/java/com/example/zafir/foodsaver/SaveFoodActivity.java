@@ -10,12 +10,14 @@ public class SaveFoodActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_save_food);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new SaveFoodFragment())
                     .commit();
         }
+        //setProgressBarIndeterminateVisibility(true);
     }
 
 
@@ -36,5 +38,11 @@ public class SaveFoodActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 }

@@ -22,7 +22,8 @@
         </activity>
         <activity
             android:name=".SaveFoodActivity"
-            android:label="@string/title_activity_save_food" >
+            android:label="@string/title_activity_save_food"
+            android:parentActivityName=".MainActivity">
         </activity>
         <activity
             android:name=".DetailFoodActivity"
