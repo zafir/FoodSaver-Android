@@ -7,6 +7,7 @@ package com.example.zafir.foodsaver;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
@@ -22,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -64,11 +66,6 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_refresh) {
-            updateRestaurants();
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -89,9 +86,9 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_save_food, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_save_food, container, false);
 
         mRestaurantAdapter = new CustomArrayAdapter(
                 getActivity(),
@@ -110,6 +107,7 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
                 Intent intent = new Intent(getActivity(), DetailFoodActivity.class)
                         .putExtra(Intent.EXTRA_TEXT, restaurant);
                 startActivity(intent);
+                getActivity().finish();
             }
         });
 
@@ -118,16 +116,59 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
         notFound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setMessage("foo").setTitle(R.string.restaurant_not_found_button);
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                showDialog(inflater, rootView);
             }
         });
 
         return rootView;
     }
 
+    private void showDialog(final LayoutInflater inflater, final View rootView) {
+        final AlertDialog builder = new AlertDialog.Builder(getActivity())
+        .setView(inflater.inflate(R.layout.dialog_not_found, null))
+        .setPositiveButton(R.string.save_entry, null)
+        .setNegativeButton(R.string.cancel, null)
+        .setTitle(R.string.restaurant_not_found_button)
+        .create();
+
+        builder.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+
+                Button b = builder.getButton(AlertDialog.BUTTON_POSITIVE);
+                b.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        EditText name = (EditText) rootView.findViewById(R.id.dialog_name);
+                        EditText address = (EditText) rootView.findViewById(R.id.dialog_address);
+                        String nameInput;
+                        String addressInput;
+                        if (name != null) {
+                            nameInput = String.valueOf(name.getText());
+                        } else {
+                            nameInput = "Empty";
+                        }
+
+                        if (address == null) {
+                            addressInput = "";
+                        } else {
+                            addressInput = String.valueOf(address.getText());
+                        }
+
+                        String intentExtra = nameInput + " - " + addressInput;
+                        Intent intent = new Intent(getActivity(), DetailFoodActivity.class)
+                                .putExtra(Intent.EXTRA_TEXT, intentExtra);
+                        startActivity(intent);
+                        getActivity().finish();
+
+                    }
+                });
+            }
+        });
+
+        builder.show();
+    }
 
 
     @Override

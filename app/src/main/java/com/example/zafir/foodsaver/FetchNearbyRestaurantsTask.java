@@ -16,12 +16,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by zafir on 8/9/14.
  */
 
-public class FetchNearbyRestaurantsTask extends AsyncTask<String, Void, String[]> {
+public class FetchNearbyRestaurantsTask extends AsyncTask<String, Void, ArrayList<String>> {
     private final String LOG_TAG = FetchNearbyRestaurantsTask.class.getSimpleName();
     private ArrayAdapter<String> mRestaurantAdapter;
     private final Context mContext;
@@ -38,7 +39,7 @@ public class FetchNearbyRestaurantsTask extends AsyncTask<String, Void, String[]
      * Fortunately parsing is easy:  constructor takes the JSON string and converts it
      * into an Object hierarchy for us.
      */
-    private String[] getRestaurantDataFromJson(String restaurantJsonStr)
+    private ArrayList<String> getRestaurantDataFromJson(String restaurantJsonStr)
             throws JSONException {
 
         // These are the names of the JSON objects that need to be extracted.
@@ -50,7 +51,7 @@ public class FetchNearbyRestaurantsTask extends AsyncTask<String, Void, String[]
         JSONObject restaurantJson = new JSONObject(restaurantJsonStr);
         JSONArray restaurantJsonArray = restaurantJson.getJSONArray(API_RESULTS);
 
-        String[] resultStrs = new String[API_LIMIT];
+        ArrayList<String> resultStrs = new ArrayList<String>();
         for (int i = 0; i < API_LIMIT; i++) {
             // For now, using the format "Day, description, hi/low"
             String name;
@@ -69,8 +70,9 @@ public class FetchNearbyRestaurantsTask extends AsyncTask<String, Void, String[]
             // "this saturday".
             name = restaurant.getString(API_NAME);
             address = restaurant.getString(API_ADDRESS);
+            if (name == null) break;
 
-            resultStrs[i] = name + " - " + address;
+            resultStrs.add(name + " - " + address);
         }
 
         for (String s : resultStrs) {
@@ -80,7 +82,7 @@ public class FetchNearbyRestaurantsTask extends AsyncTask<String, Void, String[]
     }
 
     @Override
-    protected String[] doInBackground(String... params) {
+    protected ArrayList<String> doInBackground(String... params) {
         if (params.length == 0) return null;
 
         // These two need to be declared outside the try/catch
@@ -172,7 +174,7 @@ public class FetchNearbyRestaurantsTask extends AsyncTask<String, Void, String[]
         return null;
     }
     @Override
-    protected void onPostExecute(String[] result) {
+    protected void onPostExecute(ArrayList<String> result) {
         if (result != null) {
             mRestaurantAdapter.clear();
             for (String restaurantStr: result) {

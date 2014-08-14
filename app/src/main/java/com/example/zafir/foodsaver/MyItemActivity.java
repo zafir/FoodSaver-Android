@@ -1,9 +1,11 @@
 package com.example.zafir.foodsaver;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
@@ -71,6 +73,8 @@ public class MyItemActivity extends Activity {
         private static final int COL_RATING = 4;
         private static final int COL_DESC = 5;
 
+        private String _id;
+
         public MyItemFragment() {
         }
 
@@ -83,10 +87,53 @@ public class MyItemActivity extends Activity {
             mItemView = (TextView) rootView.findViewById(R.id.my_item_item_textview);
             mRatingBar = (RatingBar) rootView.findViewById(R.id.my_item_ratingbar);
             mDescView = (TextView) rootView.findViewById(R.id.my_item_desc_textview);
-
+            setHasOptionsMenu(true);
 
             //Toast.makeText(getActivity(), _id + "new act", Toast.LENGTH_SHORT).show();
             return rootView;
+        }
+
+
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            int id = item.getItemId();
+            if (id == R.id.action_delete) {
+                AlertDialog dialog = confirmDelete();
+                dialog.show();
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+
+        private AlertDialog confirmDelete() {
+
+            AlertDialog deleteDialog = new AlertDialog.Builder(getActivity())
+                    //set message, title, and icon
+                    .setTitle(R.string.confirm_delete)
+                    .setMessage(R.string.confirm_delete_message)
+                    .setPositiveButton(R.string.action_delete, new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            getActivity().getContentResolver().delete(
+                                    RestaurantContract.RestaurantEntry.CONTENT_URI,
+                                    RestaurantContract.RestaurantEntry._ID + "=?",
+                                    new String[] {_id}
+                            );
+                            getActivity().finish();
+                            dialog.dismiss();
+                        }
+
+                    })
+                    .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create();
+
+            return deleteDialog;
+
         }
 
         @Override
@@ -98,7 +145,7 @@ public class MyItemActivity extends Activity {
         @Override
         public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
             Intent intent = getActivity().getIntent();
-            String _id = intent.getStringExtra(Intent.EXTRA_TEXT);
+            _id = intent.getStringExtra(Intent.EXTRA_TEXT);
             String[] projection = {RestaurantContract.RestaurantEntry._ID,
                     RestaurantContract.RestaurantEntry.COLUMN_DATE,
                     RestaurantContract.RestaurantEntry.COLUMN_RESTAURANT_KEY,

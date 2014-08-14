@@ -19,5 +19,13 @@
     <string name="detail_food_item_default">Fish tacos</string>
     <string name="restaurant_not_found_button">Don\'t see your restaurant?</string>
     <string name="title_activity_my_item">MyItemActivity</string>
+    <string name="save_entry">Go on</string>
+    <string name="cancel">Cancel</string>
+    <string name="warning_entry">I understand</string>
+    <string name="empty_warning_message">"Next time you should include a restaurant name"</string>
+    <string name="action_delete">Delete</string>
+    <string name="confirm_delete">Confirm delete</string>
+    <string name="confirm_delete_message">Are you sure you want to delete this entry?</string>
+
 
 </resources>

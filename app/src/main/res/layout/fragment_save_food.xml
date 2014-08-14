@@ -5,19 +5,19 @@
     tools:context="com.example.zafir.foodsaver.SaveFoodActivity$PlaceholderFragment"
     android:orientation="vertical"
     android:gravity="center">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    <Button
-        android:id="@+id/button_cant_find_restaurant"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/restaurant_not_found_button"/>
-    </LinearLayout>
     <ListView
         android:id="@+id/listview_restaurant"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <Button
+        android:id="@+id/button_cant_find_restaurant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:text="@string/restaurant_not_found_button"/>
+
 
 </LinearLayout>
 

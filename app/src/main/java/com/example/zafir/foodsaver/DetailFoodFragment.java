@@ -4,6 +4,7 @@ package com.example.zafir.foodsaver;
  * Created by zafir on 8/8/14.
  */
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -75,14 +76,13 @@ public class DetailFoodFragment extends Fragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String successMessage = "Success!";
-                Toast.makeText(getActivity(), successMessage, Toast.LENGTH_SHORT).show();
 
                 //get today's date
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
                 String todaysDate = sdf.format(new Date());
                 //get restaurant name
                 String name = parts[0].trim();
+
                 //get restaurant address
                 String address = parts[1].trim();
                 //get item
@@ -115,7 +115,25 @@ public class DetailFoodFragment extends Fragment {
                 Uri restaurantInsertUri = getActivity().getContentResolver()
                         .insert(RestaurantContract.RestaurantEntry.CONTENT_URI, myRestaurantEntry);
                 Log.v(LOG_TAG, "RESATAURANT URI IS " + restaurantInsertUri);
+                String successMessage = "Successfully saved!";
+                Toast.makeText(getActivity(), successMessage, Toast.LENGTH_LONG).show();
+                if (name.equalsIgnoreCase("Empty")) {
+                    displayAlert();
+                } else{
+                    getActivity().finish();
+                }
+
+
             }
         });
+    }
+
+    private void displayAlert() {
+        final AlertDialog builder = new AlertDialog.Builder(getActivity())
+                .setMessage(R.string.empty_warning_message)
+                .setPositiveButton(R.string.warning_entry, null)
+                .setTitle(R.string.restaurant_not_found_button)
+                .create();
+        builder.show();
     }
 }
