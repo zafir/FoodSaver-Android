@@ -6,6 +6,7 @@ package com.example.zafir.foodsaver;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -39,6 +41,21 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
     private double lon = Double.MIN_VALUE;
     private final String LOG_TAG = SaveFoodFragment.class.getSimpleName();
     private CustomArrayAdapter mRestaurantAdapter;
+
+    final private SearchView.OnQueryTextListener queryListener = new SearchView.OnQueryTextListener() {
+
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            Toast.makeText(getActivity(), "Searching for: " + query + "...", Toast.LENGTH_SHORT).show();
+            searchRestaurants(query);
+            return false;
+        }
+    };
 
     public SaveFoodFragment() {
     }
@@ -66,6 +83,14 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.save_food, menu);
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager =
+                (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getActivity().getComponentName()));
+        searchView.setOnQueryTextListener(queryListener);
     }
 
     @Override
@@ -77,6 +102,16 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void searchRestaurants(String query) {
+        SearchNearbyRestaurantsTask restaurantsTask = new SearchNearbyRestaurantsTask(getActivity(),
+                mRestaurantAdapter);
+        /*if (lat == Double.MIN_VALUE) {
+            lat = null;
+            lon = -122.080521;
+        }*/
+        restaurantsTask.execute(String.valueOf(lat), String.valueOf(lon), query);
     }
 
     private void updateRestaurants() {

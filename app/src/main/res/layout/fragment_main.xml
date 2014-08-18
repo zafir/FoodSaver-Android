@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity$PlaceholderFragment"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:id="@+id/mainActivityContainer">
 
     <TextView
         android:layout_width="match_parent"

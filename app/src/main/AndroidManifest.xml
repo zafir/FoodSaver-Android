@@ -24,6 +24,8 @@
             android:name=".SaveFoodActivity"
             android:label="@string/title_activity_save_food"
             android:parentActivityName=".MainActivity">
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
         </activity>
         <activity
             android:name=".DetailFoodActivity"
