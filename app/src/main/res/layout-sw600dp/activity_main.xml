@@ -1,0 +1,73 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:divider="?android:attr/dividerHorizontal"
+    android:orientation="horizontal"
+    tools:context="com.example.android.sunshine.app.MainActivity">
+
+    <!--
+    This layout is a two-pane layout for the Items master/detail flow.
+    -->
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        tools:context=".MainActivity$PlaceholderFragment"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:id="@+id/mainActivityContainer">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:id="@+id/my_food_button"
+            android:shadowColor="@color/android_blue"
+            android:text="@string/my_food"
+            android:fontFamily="sans-serif-condensed"
+            android:textSize="50sp"
+            android:background="@color/android_blue"
+            android:gravity="center"
+            android:clickable="true"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:id="@+id/save_food_button"
+            android:text="@string/save_food"
+            android:textSize="50sp"
+            android:background="@color/android_red"
+            android:gravity="center"
+            android:clickable="true"/>
+
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        tools:context="com.example.zafir.foodsaver.SaveFoodActivity$PlaceholderFragment"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="4">
+        <ListView
+            android:id="@+id/listview_restaurant"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/button_cant_find_restaurant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="@string/restaurant_not_found_button"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>
