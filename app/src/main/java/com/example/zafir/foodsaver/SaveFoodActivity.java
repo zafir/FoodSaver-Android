@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+/**
+ * Activity displaying nearby restaurants. The first step in saving a new entry.
+ */
 public class SaveFoodActivity extends Activity {
 
     @Override

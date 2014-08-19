@@ -9,7 +9,8 @@ import android.widget.ArrayAdapter;
 import java.util.List;
 
 /**
- * Created by zafir on 8/13/14.
+ * A custom ArrayAdapter that inherits all of the functionality from its superclass. The one customization
+ * is that it alternates the color of every other view to improve readability for the user.
  */
 public class CustomArrayAdapter extends ArrayAdapter<String> {
 
@@ -20,6 +21,14 @@ public class CustomArrayAdapter extends ArrayAdapter<String> {
         this.mContext = context;
     }
 
+    /**
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     * As the View is drawn, every other row is a light gray color.
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = super.getView(position, convertView, parent);

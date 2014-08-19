@@ -5,6 +5,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+/**
+ * This activity is the detail screen for when a user saves a new food entry. The user arrives at this
+ * activity having chosen a restaurant from the previous activity, and in this activity they actually
+ * create and save the entry into their database.
+ */
 public class DetailFoodActivity extends Activity {
 
     @Override

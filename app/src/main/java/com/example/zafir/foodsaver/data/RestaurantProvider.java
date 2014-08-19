@@ -9,7 +9,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 
 /**
- * Created by zafir on 8/9/14.
+ * Content Provider class for the database. The purpose of the content provider is to create
+ * a simple interface to the backend data for any other part of the application, or potentially
+ * an external application. It abstracts away the underlying backend data model (which, in this case,
+ * is a SQLite table, but could have been NoSQL or a file, etc.).
  */
 public class RestaurantProvider extends ContentProvider {
     private static final int RESTAURANT = 100;
@@ -26,15 +29,30 @@ public class RestaurantProvider extends ContentProvider {
         return matcher;
     }
 
+    /**
+     * Creates the database
+     * @return
+     */
     @Override
     public boolean onCreate() {
         mOpenHelper = new RestaurantDbHelper(getContext());
         return true;
     }
 
+    /**
+     *
+     * @param uri of the path of the table
+     * @param projection is the list of columns
+     * @param selection is a set of criteria to filter the data on (rows)
+     * @param selectionArgs arguments for the selection
+     * @param sortOrder defining any sort order
+     * @return a Cursor, which is the result of a query
+     * Implements querying the database
+     */
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         Cursor retCursor;
+        // Implements the query in the database
         switch(sUriMatcher.match(uri)) {
             case RESTAURANT: {
                 retCursor = mOpenHelper.getReadableDatabase().query(
@@ -67,6 +85,13 @@ public class RestaurantProvider extends ContentProvider {
         }
     }
 
+    /**
+     *
+     * @param uri
+     * @param contentValues
+     * @return Uri of the inserted data
+     * Inserts the data into the database, again in a standard interface
+     */
     @Override
     public Uri insert(Uri uri, ContentValues contentValues) {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
@@ -88,6 +113,14 @@ public class RestaurantProvider extends ContentProvider {
         return returnUri;
     }
 
+    /**
+     *
+     * @param uri
+     * @param selection
+     * @param selectionArgs
+     * @return an int representing the number of rows affected
+     * Implements deleting from the database, in a standard interface
+     */
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
         final SQLiteDatabase db = mOpenHelper.getWritableDatabase();

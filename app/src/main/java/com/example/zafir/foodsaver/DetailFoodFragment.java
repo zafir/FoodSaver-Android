@@ -26,9 +26,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * A placeholder fragment containing a simple view.
+ * Fragment used by DetailFoodActivity. Displays fields for the user to fill in the name
+ * of the restaurant, what they ate, a five star rating, and additional comments. Then, the user can save
+ * the entry and store it in the backend.
  */
 public class DetailFoodFragment extends Fragment {
+    // Contains two strings, one representing the restaurant name and the other its address,
+    // created by splitting the string passed via the intent which combines both pieces of information
     String[] parts;
     private final String LOG_TAG = DetailFoodFragment.class.getSimpleName();
 
@@ -40,6 +44,9 @@ public class DetailFoodFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_detail_food, container, false);
         Intent intent = getActivity().getIntent();
+
+        // Splits the string passed in via the intent, which contains the restaurant name
+        // and address separated by a dash.
         if (intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
             String restaurantStr = intent.getStringExtra(Intent.EXTRA_TEXT);
             parts = restaurantStr.split("-");
@@ -47,18 +54,23 @@ public class DetailFoodFragment extends Fragment {
                     .setText(restaurantStr);
         }
 
-        //handle the saved button being clicked
+        // Handles the saved button being clicked
         saveButtonHandler(rootView);
-        //handle rating bar changes
+
+        // Handles rating bar changes
         ratingBarHandler(rootView);
 
         return rootView;
     }
 
+    /**
+     *
+     * @param rootView
+     * Allows the user to change the rating on the RatingBar, which is a widget provided by
+     * Android. Displays a toast letting the user know that their change was accepted.
+     */
     private void ratingBarHandler(View rootView) {
         RatingBar ratingBar = (RatingBar) rootView.findViewById(R.id.detail_food_ratingbar);
-        int curr = (int) ratingBar.getRating();
-        Toast.makeText(getActivity(), String.valueOf(curr), Toast.LENGTH_SHORT).show();
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
@@ -71,40 +83,45 @@ public class DetailFoodFragment extends Fragment {
         });
     }
 
+    /**
+     *
+     * @param rootView
+     * Stores the entries into the database upon tapping save
+     */
     private void saveButtonHandler(final View rootView) {
         Button saveButton = (Button) rootView.findViewById(R.id.detail_food_button);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                //get today's date
+                // Get today's date
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
                 String todaysDate = sdf.format(new Date());
-                //get restaurant name
+
+                // Get restaurant name
                 String name = parts[0].trim();
 
-                //get restaurant address
+                // Get restaurant address
                 String address = parts[1].trim();
-                //get item
+
+                // Get item
                 EditText itemText = (EditText) getView().findViewById(R.id.itemText);
                 String item = itemText.getText().toString();
-                //get rating
+
+                // Get rating
                 RatingBar ratingBar = (RatingBar) rootView.findViewById(R.id.detail_food_ratingbar);
                 int rating = (int) ratingBar.getRating();
-                //get restaurant description
+
+                // Get restaurant description
                 EditText descText = (EditText) getView().findViewById(R.id.descriptionText);
                 String description = descText.getText().toString();
 
+                // Logs entries into the database
                 Log.v(LOG_TAG, "Name is: " + name + " address is: " + address + " " +
                         "description is: " + description);
                 Log.v(LOG_TAG, "Inserting data into the database!");
-                if (descText == null || itemText == null) {
-                    Toast.makeText(getActivity(), "it's null!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity(), "not null", Toast.LENGTH_SHORT).show();
-                }
 
-
+                // Uses the content provider to insert the data into the database
                 ContentValues myRestaurantEntry = new ContentValues();
                 myRestaurantEntry.put(RestaurantContract.RestaurantEntry.COLUMN_DATE, todaysDate);
                 myRestaurantEntry.put(RestaurantContract.RestaurantEntry.COLUMN_RESTAURANT_KEY, name);
@@ -114,12 +131,17 @@ public class DetailFoodFragment extends Fragment {
                 myRestaurantEntry.put(RestaurantContract.RestaurantEntry.COLUMN_DESC, description);
                 Uri restaurantInsertUri = getActivity().getContentResolver()
                         .insert(RestaurantContract.RestaurantEntry.CONTENT_URI, myRestaurantEntry);
-                Log.v(LOG_TAG, "RESATAURANT URI IS " + restaurantInsertUri);
-                String successMessage = "Successfully saved!";
-                Toast.makeText(getActivity(), successMessage, Toast.LENGTH_LONG).show();
+                Log.v(LOG_TAG, "RESTAURANT URI IS " + restaurantInsertUri);
+
+                Toast.makeText(getActivity(), "Successfully saved!", Toast.LENGTH_LONG).show();
+
+                // Displays a message to the user encouraging them to store data with actual restaurant
+                // names for a better experience
                 if (name.equalsIgnoreCase("Empty")) {
                     displayAlert();
                 } else{
+                    // Upon saving an entry, automatically finishes the activity and takes the user back
+                    // to the home screen
                     getActivity().finish();
                 }
 
@@ -128,6 +150,9 @@ public class DetailFoodFragment extends Fragment {
         });
     }
 
+    /**
+     * Displays an alert to the user encouraging them to store entries with an actual restaurant name
+     */
     private void displayAlert() {
         final AlertDialog builder = new AlertDialog.Builder(getActivity())
                 .setMessage(R.string.empty_warning_message)

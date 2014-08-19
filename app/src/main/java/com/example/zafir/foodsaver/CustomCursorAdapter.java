@@ -8,7 +8,8 @@ import android.view.ViewGroup;
 import android.widget.SimpleCursorAdapter;
 
 /**
- * Created by zafir on 8/13/14.
+ * A custom CursorAdapter that inherits all of the functionality from its superclass. The one customization
+ * is that it alternates the color of every other view to improve readability for the user.
  */
 public class CustomCursorAdapter extends SimpleCursorAdapter {
 
