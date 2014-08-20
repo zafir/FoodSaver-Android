@@ -16,7 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        android:text="@string/restaurant_not_found_button"/>
+        android:text="@string/restaurant_not_found_button"
+        android:fontFamily="sans-serif-condensed"/>
 
 
 </LinearLayout>
