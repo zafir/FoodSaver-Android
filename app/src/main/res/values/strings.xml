@@ -26,6 +26,8 @@
     <string name="action_delete">Delete</string>
     <string name="confirm_delete">Confirm delete</string>
     <string name="confirm_delete_message">Are you sure you want to delete this entry?</string>
+    <string name="dialog_name_hint">Enter name</string>
+    <string name="dialog_address_hint">Enter address</string>
 
 
 </resources>
