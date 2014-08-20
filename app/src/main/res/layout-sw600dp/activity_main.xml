@@ -19,11 +19,11 @@
         tools:context=".MainActivity$PlaceholderFragment"
         android:orientation="vertical"
         android:gravity="center"
-        android:id="@+id/mainActivityContainer">
+        android:id="@+id/container">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="50"
             android:id="@+id/my_food_button"
             android:shadowColor="@color/android_blue"
@@ -35,7 +35,7 @@
             android:clickable="true"/>
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_weight="50"
             android:id="@+id/save_food_button"
             android:text="@string/save_food"
@@ -46,28 +46,9 @@
 
     </LinearLayout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout
+        android:id="@+id/restaurant_detail_container"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        tools:context="com.example.zafir.foodsaver.SaveFoodActivity$PlaceholderFragment"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:layout_weight="4">
-        <ListView
-            android:id="@+id/listview_restaurant"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
-        <Button
-            android:id="@+id/button_cant_find_restaurant"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:text="@string/restaurant_not_found_button"/>
-
-
-    </LinearLayout>
-
+        android:layout_weight="4" />
 </LinearLayout>

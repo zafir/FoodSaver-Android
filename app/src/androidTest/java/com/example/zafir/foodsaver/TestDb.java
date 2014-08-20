@@ -10,11 +10,13 @@ import com.example.zafir.foodsaver.data.RestaurantContract;
 import com.example.zafir.foodsaver.data.RestaurantDbHelper;
 
 /**
- * Created by zafir on 8/8/14.
+ * JUnit tests for the SQLite database. Very convenient in Android Studio! Makes iterative development
+ * much smoother.
  */
 public class TestDb extends AndroidTestCase {
     public static final String LOG_TAG = TestDb.class.getSimpleName();
 
+    // Test creating the database
     public void testCreateDb() throws Throwable {
         mContext.deleteDatabase(RestaurantDbHelper.DATABASE_NAME);
         SQLiteDatabase db = new RestaurantDbHelper(
@@ -22,7 +24,7 @@ public class TestDb extends AndroidTestCase {
         assertEquals(true, db.isOpen());
         db.close();
     }
-
+    // Test inserting data, and reading it back out
     public void testInsertReadDb() {
         String testRestaurantName = "Cheesecake Factory";
         String testAddress = "101 Geary St.";

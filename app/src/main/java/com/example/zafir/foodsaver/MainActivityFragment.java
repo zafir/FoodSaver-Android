@@ -1,8 +1,5 @@
 package com.example.zafir.foodsaver;
 
-/**
- * Created by zafir on 8/6/14.
- */
 
 import android.app.Fragment;
 import android.content.Intent;
@@ -26,13 +23,20 @@ public class MainActivityFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-        //Makes the textview to save a new entry tappable. Launches a new activity
+        // Makes the textview to save a new entry tappable. Launches a new activity on a phone,
+        // or replaces the fragment in the two-pane tablet UI
         TextView saveButton = (TextView) rootView.findViewById(R.id.save_food_button);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), SaveFoodActivity.class);
-                startActivity(intent);
+                if (getActivity().findViewById(R.id.restaurant_detail_container) != null) {
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.restaurant_detail_container, new SaveFoodFragment())
+                            .commit();
+                } else {
+                    Intent intent = new Intent(getActivity(), SaveFoodActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -41,8 +45,14 @@ public class MainActivityFragment extends Fragment {
         myFoodbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), MyFoodActivity.class);
-                startActivity(intent);
+                if (getActivity().findViewById(R.id.restaurant_detail_container) != null) {
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.restaurant_detail_container, new MyFoodFragment())
+                            .commit();
+                } else {
+                    Intent intent = new Intent(getActivity(), MyFoodActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         return rootView;

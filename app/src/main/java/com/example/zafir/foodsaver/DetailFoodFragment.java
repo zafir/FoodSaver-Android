@@ -49,9 +49,12 @@ public class DetailFoodFragment extends Fragment {
         // and address separated by a dash.
         if (intent != null && intent.hasExtra(Intent.EXTRA_TEXT)) {
             String restaurantStr = intent.getStringExtra(Intent.EXTRA_TEXT);
+
+            // Sets the restaurant name to the first part of the combined "name - address" restaurantStr
+            // string
             parts = restaurantStr.split("-");
             ((TextView) rootView.findViewById(R.id.detail_food))
-                    .setText(restaurantStr);
+                    .setText(parts[0]);
         }
 
         // Handles the saved button being clicked

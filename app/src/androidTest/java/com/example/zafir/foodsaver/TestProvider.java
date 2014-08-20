@@ -11,15 +11,17 @@ import com.example.zafir.foodsaver.data.RestaurantContract;
 import com.example.zafir.foodsaver.data.RestaurantDbHelper;
 
 /**
- * Created by zafir on 8/8/14.
+ * JUnit tests for the Content provider
  */
 public class TestProvider extends AndroidTestCase {
     public static final String LOG_TAG = TestProvider.class.getSimpleName();
 
+    //Test deleting the database
     public void testDeleteDb() throws Throwable {
         mContext.deleteDatabase(RestaurantDbHelper.DATABASE_NAME);
     }
 
+    //Test inserting into the database and reading data back out
     public void testInsertReadProvider() {
         String testRestaurantName = "Cheesecake Factory";
         String testAddress = "101 Geary St.";

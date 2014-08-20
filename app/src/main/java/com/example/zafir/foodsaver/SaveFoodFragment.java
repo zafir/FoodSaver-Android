@@ -268,23 +268,23 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
                     @Override
                     public void onClick(View view) {
                         //Finds the fields for name and address
-                        EditText name = (EditText) rootView.findViewById(R.id.dialog_name);
-                        EditText address = (EditText) rootView.findViewById(R.id.dialog_address);
+                        EditText name = (EditText) builder.findViewById(R.id.dialog_name);
+                        EditText address = (EditText) builder.findViewById(R.id.dialog_address);
                         String nameInput;
                         String addressInput;
 
                         // Sets the strings which are passed as intent extras to either default "empty"
                         // or what the user entered
-                        if (name != null) {
+                        if (name.getText().length() != 0) {
                             nameInput = String.valueOf(name.getText());
                         } else {
                             nameInput = "Empty";
                         }
 
-                        if (address == null) {
-                            addressInput = "";
-                        } else {
+                        if (address.getText().length() != 0) {
                             addressInput = String.valueOf(address.getText());
+                        } else {
+                            addressInput = "";
                         }
 
                         String intentExtra = nameInput + " - " + addressInput;
