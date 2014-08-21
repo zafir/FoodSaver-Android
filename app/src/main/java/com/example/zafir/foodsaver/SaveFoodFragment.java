@@ -180,6 +180,7 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
     public void onStart() {
         super.onStart();
         updateRestaurants();
+        //foo;
     }
 
     /**
