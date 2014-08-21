@@ -21,3 +21,4 @@ Technical details: Last updated 8/20/2014. Compiles with Android KitKat (API 19)
 -Content provider created to make for easy data interaction - inserting, querying, and deleting data 
 -Uses custom cursor and array adapters, for the list of locally stored entires and API results, respectively 
 -Alternate two-pane tablet UI created for MainActivity (home screen of the app)
+-JUnit tests implemented to test the database and content provider
