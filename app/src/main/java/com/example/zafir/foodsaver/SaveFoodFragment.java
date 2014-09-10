@@ -180,7 +180,6 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
     public void onStart() {
         super.onStart();
         updateRestaurants();
-        //foo;
     }
 
     /**
@@ -223,7 +222,6 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
                 Intent intent = new Intent(getActivity(), DetailFoodActivity.class)
                         .putExtra(Intent.EXTRA_TEXT, restaurant);
                 startActivity(intent);
-                getActivity().finish();
             }
         });
 
@@ -261,7 +259,7 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
         // If the user chooses to submit empty data, we populate it with the word "empty"
         builder.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
-            public void onShow(DialogInterface dialog) {
+            public void onShow(final DialogInterface dialog) {
 
                 Button b = builder.getButton(AlertDialog.BUTTON_POSITIVE);
                 b.setOnClickListener(new View.OnClickListener() {
@@ -294,10 +292,6 @@ public class SaveFoodFragment extends Fragment implements LocationListener {
 
                         // Starts the next activity
                         startActivity(intent);
-
-                        // Finishes this activity to remove it from the activity stack
-                        getActivity().finish();
-
                     }
                 });
             }

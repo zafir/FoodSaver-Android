@@ -7,6 +7,7 @@ package com.example.zafir.foodsaver;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -159,7 +160,16 @@ public class DetailFoodFragment extends Fragment {
     private void displayAlert() {
         final AlertDialog builder = new AlertDialog.Builder(getActivity())
                 .setMessage(R.string.empty_warning_message)
-                .setPositiveButton(R.string.warning_entry, null)
+                .setPositiveButton(R.string.warning_entry, new DialogInterface.OnClickListener() {
+                    //Returns the app to MainActivity and clears the backstack
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(getActivity(), MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
+                })
                 .setTitle(R.string.restaurant_not_found_button)
                 .create();
         builder.show();

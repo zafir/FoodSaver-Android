@@ -2,7 +2,6 @@ package com.example.zafir.foodsaver;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 
 /**
@@ -21,14 +20,6 @@ public class DetailFoodActivity extends Activity {
                     .add(R.id.container, new DetailFoodFragment())
                     .commit();
         }
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.detail_food, menu);
-        return true;
     }
 
     @Override
